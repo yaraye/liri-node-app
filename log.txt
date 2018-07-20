@@ -1,8 +1,1 @@
-npm init
-create .gitignore file 
-install pacakge
 
-    npm install twitter
-    npm install node-spotify-api
-    npm install request
-    npm install dotenv
