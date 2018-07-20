@@ -4,11 +4,26 @@
 var keys = require("./keys.js");
 var Twitter = require('twitter');
 var client = new Twitter(keys.twitter);
+
+var params = {screen_name: 'Ynode'};
+client.get('statuses/user_timeline', params, function(error, tweets, response) {
+  if (!error) {
+    console.log(tweets);
+  }
+});
 console.log("------------------------------------------------------------------------------------------------")
 
 var Spotify = require('node-spotify-api');
  
 var spotify = new Spotify(keys.spotify);
+ 
+spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+  if (err) {
+    return console.log('Error occurred: ' + err);
+  }
+ 
+console.log(JSON.spotify(data, null, 2)); 
+});
 	// If no song is provided, LIRI defaults to 'The Sign' by Ace Of Base
 	// var music;
 	// if (song === '') {
@@ -16,22 +31,6 @@ var spotify = new Spotify(keys.spotify);
 	// } else {
 	// 	music = song;
     // }
-    spotify
-    .request('https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx')
-    .then(function(data) {
-      console.log(data); 
-    })
-    .catch(function(err) {
-      console.error('Error occurred: ' + err); 
-    }); 
-    params = song;
-  spotify.search({ type: 'track', query: song}, function(error, data) {
-    if (err) {
-      return console.log('Error occurred: ' + error);
-    }
-   
-  console.log(data); 
-  });
 
 
 console.log("------------------------------------------------------------------------------------------------")
@@ -39,23 +38,30 @@ console.log("-------------------------------------------------------------------
 //node liri.js movie-this '<movie name here>'`
 var request = require('request');
 var movies = process.argv;
+
+if(process.argv[2] == "movie-this")
+{
+  movieThis();
+}
+else if(process.argv[2] == "twitter-this")
+{
+
+
+}
+
 function movieThis(){
    
-    if(movies===null){
-        movies = "MR Nobody";
-    }else {
-		movies = movies;
-	}
-}
-//empty variable for holding the movie name
-var movieName = {};
-console.log(movieName);
-
+  var movieName = "";
 // Loop through all the words in the node argument
 for (var i = 3; i < movies.length; i++) {
     movieName = movieName + "  " + process.argv[i];
 }
 console.log(movieName);
+
+if(movieName == "")
+{
+  movieName = "Nobody";
+}
  
 
 // Then run a request to the OMDB API with the movie specified
@@ -91,6 +97,10 @@ request(queryUrl, function(error, response, body) {
     });
 }
 });
+  
+}
+
+
 
 console.log("------------------------------------------------------------------------------------------------")
 

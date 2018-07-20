@@ -1,5 +1,4 @@
-
-var dotenv = require("dotenv").config(); 
+require("dotenv").config(); 
 
 
 exports.twitter = {
