@@ -1,4 +1,4 @@
-# liri-node-app
+# LIRI-node-app
 
 LIRI is a Language Interpretation and Recognition Interface.   
 using LIRI will take the following command:-
@@ -7,7 +7,7 @@ using LIRI will take the following command:-
 
     * spotify-this-song
     This will show the following information about the song in your terminal/bash window
-     
+
      * Artist(s)
      
      * The song's name
@@ -35,6 +35,6 @@ using LIRI will take the following command:-
      If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody'.
 
     * do-what-it-says
-Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+    Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
-It should run `spotify-this-song` for "I Want it That Way," as follows the text in random.txt file.
+    It should run `spotify-this-song` for "I Want it That Way," as follows the text in random.txt file.
