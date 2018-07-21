@@ -62,8 +62,10 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 function spotifyThisSong(song){
 
   var song=process.argv[3];
+ 
 
   spotify.search({ type: 'track', query: song }, function(err, data) {
+ 
     if (!err) {
 // console.log(JSON.stringify(data,null,2));
      
@@ -79,13 +81,14 @@ for (var i = 0; i < songs.length; i++) {
   console.log("-----------------------------------");
   console.log("Album: " + songs[0].album.name);
   console.log("-----------------------------------");
+  return;
 }
 
     }else{
       console.log('Error occurred: ' + err);
       return;
     }
-    if(song == "")
+    if(song === "")
     {
       song = "The Sign";
     }
