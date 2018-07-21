@@ -61,23 +61,23 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 //node liri.js spotify-this-song '<song name here>'`
 function spotifyThisSong(song){
 
-  var song="halo";
+  var song=process.argv[3];
 
   spotify.search({ type: 'track', query: song }, function(err, data) {
     if (!err) {
-console.log(JSON.stringify(data,null,2));
+// console.log(JSON.stringify(data,null,2));
      
 var songs = data.tracks.items;
 
 for (var i = 0; i < songs.length; i++) {
   
-  console.log("Artist(s): " + songInfo[0].artists[0].name);
+  console.log("Artist(s): " + songs[0].artists[0].name);
   console.log("-----------------------------------");
-  console.log("Song Name: " + songInfo[0].name);
+  console.log("Song Name: " + songs[0].name);
   console.log("-----------------------------------");
-  console.log("Preview Link: " + songInfo[0].preview_url);
+  console.log("Preview Link: " + songs[0].preview_url);
   console.log("-----------------------------------");
-  console.log("Album: " + songInfo[0].album.name);
+  console.log("Album: " + songs[0].album.name);
   console.log("-----------------------------------");
 }
 
@@ -145,9 +145,10 @@ request(queryUrl, function(error, response, body) {
 function doWhatItSaya(){
 
 fs.readFile("random.txt","utf8",function(error,data){
-  if (!error){
+  if (error){
     return console.log(error);
     
+        // console.log(data);
   
   } else {
     var data = data.split(',');
