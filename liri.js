@@ -70,20 +70,16 @@ console.log(JSON.stringify(data,null,2));
 var songs = data.tracks.items;
 
 for (var i = 0; i < songs.length; i++) {
-  // * Artist(s)
-     
-  //    * The song's name
-     
-  //    * A preview link of the song from Spotify
-     
-  //    * The album that the song is from
-
-  console.log("Album: " + songs[i].album.name);
+  
+  console.log("Artist(s): " + songInfo[0].artists[0].name);
   console.log("-----------------------------------");
-  // console.log("Artist: " + songs[i].artist);
+  console.log("Song Name: " + songInfo[0].name);
+  console.log("-----------------------------------");
+  console.log("Preview Link: " + songInfo[0].preview_url);
+  console.log("-----------------------------------");
+  console.log("Album: " + songInfo[0].album.name);
   console.log("-----------------------------------");
 }
-
 
     }else{
       console.log('Error occurred: ' + err);
@@ -146,14 +142,20 @@ request(queryUrl, function(error, response, body) {
 }
 
 //node liri.js do-what-it-says`
-var randomFile=processargv[2];
-fs.readFile(randomFile,"utf8",function(error,data){
-  if (error){
+function doWhatItSaya(){
+
+fs.readFile("random.txt","utf8",function(error,data){
+  if (!error){
     return console.log(error);
-  }
-  fs.appendFile("random.txt", "ABC", function(err) {
-    if(error){
-      return console.log(error);
+    
+  
+  } else {
+    var data = data.split(',');
+    if (data[0] === "spotify-this-song") {
+      spotifyThisSong(data);
+
+        // console.log(data);
     }
-    console.log("SAVED");
+  }
 });
+}
