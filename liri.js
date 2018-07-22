@@ -12,7 +12,7 @@ var spotify = require("node-spotify-api");
 var spotify = new spotify(keys.spotify);
 
 var request = require("request");
-var movieName = process.argv[3];
+var movies = process.argv[3];
 
 var liriReturn = process.argv[2];
 
@@ -35,7 +35,7 @@ switch(liriReturn)
   break;
 
   case 'do-what-it-says':
-  doWhatItSaya();
+  doWhatItSay();
   break;
 };
 
@@ -48,7 +48,8 @@ var params = {screen_name: 'Ynode'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
     for(var i=0; i < tweets.length; i++){
-      console.log(tweets[i].text);
+   
+      console.log(JSON.stringify(tweets[i].text));
     }
   }
     else {
@@ -62,6 +63,10 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
 function spotifyThisSong(song){
 
   var song=process.argv[3];
+  if(!song)
+    {
+      song = "Halo";
+    }
  
 
   spotify.search({ type: 'track', query: song }, function(err, data) {
@@ -88,17 +93,12 @@ for (var i = 0; i < songs.length; i++) {
       console.log('Error occurred: ' + err);
       return;
     }
-    if(song === "")
-    {
-      song = "The Sign";
-    }
-  
+    
   });
+  
 };
 
 //`node liri.js movie-this '<movie name here>'`
-var movies = process.argv;
-
 
 function movieThis(){
   //empty variable for holding the movie name
@@ -127,14 +127,21 @@ request(queryUrl, function(error, response, body) {
   if (!error && response.statusCode === 200)
   {
       var movieObject = JSON.parse(body);
-    console.log("------------------------------------------------------------------");
+   
     console.log("Title: " + movieObject.Title);
+    console.log("------------------------------------------------------------------");
     console.log("Year: " + movieObject.Year);
+    console.log("------------------------------------------------------------------");
     console.log("IMDB Rating: " + movieObject.imdbRating);
+    console.log("------------------------------------------------------------------");
     console.log("country where movie was produce: " + movieObject.Country);
+    console.log("------------------------------------------------------------------");
     console.log("Language: " + movieObject.Language);
+    console.log("------------------------------------------------------------------");
     console.log("Plot: " + movieObject.Plot);
+    console.log("------------------------------------------------------------------");
     console.log("Actors: " + movieObject.Actors);
+    console.log("------------------------------------------------------------------");
   }
   else {
     console.log("Error :"+ error);
@@ -145,21 +152,19 @@ request(queryUrl, function(error, response, body) {
 }
 
 //node liri.js do-what-it-says`
-function doWhatItSaya(){
+function doWhatItSay(){
 
 fs.readFile("random.txt","utf8",function(error,data){
-  if (error){
-    return console.log(error);
+  
+  if (!error){
+    var dataresult = data.split(',');
     
-        // console.log(data);
+    spotifyThisSong(data);
+      // console.log(data);
+      // spotifyThisSong(dataresult[0], dataresult[1]);
   
   } else {
-    var data = data.split(',');
-    if (data[0] === "spotify-this-song") {
-      spotifyThisSong(data);
-
-        // console.log(data);
+    return console.log(error);
     }
-  }
-});
-}
+  });
+};
