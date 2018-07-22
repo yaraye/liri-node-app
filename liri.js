@@ -24,18 +24,22 @@ switch(liriReturn)
 
   case 'my-tweets':
   myTweets();
+  console.log("...............................................................................")
   break;
-  
+ 
   case "spotify-this-song":
   spotifyThisSong();
+  console.log("...............................................................................")
   break;
 
   case 'movie-this':
   movieThis();
+  console.log("...............................................................................")
   break;
 
   case 'do-what-it-says':
   doWhatItSay();
+  console.log("...............................................................................")
   break;
 };
 
