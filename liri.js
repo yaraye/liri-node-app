@@ -52,7 +52,8 @@ var params = {screen_name: 'Ynode'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
     for(var i=0; i < tweets.length; i++){
-   
+      console.log(JSON.stringify(tweets[i].created_at));
+      console.log(" ");
       console.log(JSON.stringify(tweets[i].text));
     }
   }
@@ -152,6 +153,7 @@ request(queryUrl, function(error, response, body) {
     return;
 
   }
+
 });
 }
 
